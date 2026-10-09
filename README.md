@@ -4,7 +4,7 @@
 
 **From vibe coding to reviewed agentic coding.** Vibe coding accepts AI output nobody reads; reading every diff does not scale either. milepost sits in between: Claude works on its own inside a milestone, and you steer between milestones by reading a short document instead of the code.
 
-Ever approved an AI-written pull request you never fully read? Or lost track of where a multi-day Claude Code project was heading? milepost makes Claude plan the work as milestones, stop at the start and end of each one, and hand you a short, illustrated document that explains what it will do or did, why, and how well it worked. See [five PDFs from a real run](examples/unit-converter-cli).
+Ever approved an AI-written pull request you never fully read? Or lost track of where a multi-day Claude Code project was heading? milepost makes Claude plan the work as milestones, stop at the start and end of each one, and hand you a short, illustrated document that explains what it will do or did, why, and how well it worked. See [five PDFs from a real run](#example-output).
 
 ## Why milepost
 
@@ -75,7 +75,20 @@ Answer `y` to add the marketplace, then choose a scope.
 
 ## Example output
 
-[`examples/unit-converter-cli`](examples/unit-converter-cli) holds a complete two-milestone goal: the proposal, the design and result of each milestone, and the final `state.json`. Documents follow the language you write in; this run was translated to English for the example.
+A complete two-milestone goal (a Python unit conversion CLI), attached to the [v0.1.0 release](https://github.com/2j2h5/milepost/releases/tag/v0.1.0):
+
+- [Proposal](https://github.com/2j2h5/milepost/releases/download/v0.1.0/00-proposal.pdf)
+- M1 Conversion core: [design](https://github.com/2j2h5/milepost/releases/download/v0.1.0/M1-design.pdf) · [result](https://github.com/2j2h5/milepost/releases/download/v0.1.0/M1-result.pdf)
+- M2 Command-line interface: [design](https://github.com/2j2h5/milepost/releases/download/v0.1.0/M2-design.pdf) · [result](https://github.com/2j2h5/milepost/releases/download/v0.1.0/M2-result.pdf)
+- the final [`state.json`](examples/unit-converter-cli/state.json)
+
+Documents follow the language you write in; this run was translated to English for the example.
+
+## What it runs and sends
+
+- **The plugin's hook** reads `guide/PROTOCOL.md` from the plugin and `docs/reports/state.json` from your project on each request, adds them to Claude's system prompt, and sets the status line. It makes no network requests and writes no files.
+- **Claude, following the guide and your usual permissions,** searches the web during research, writes documents and `state.json` under `docs/reports/`, runs a local headless browser (Edge, Chrome or Chromium) to turn each document into a PDF, and commits only the way you choose at the proposal review.
+- Nothing is sent anywhere except what Claude Code itself already sends.
 
 ## Configuration
 

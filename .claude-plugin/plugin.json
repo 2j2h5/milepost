@@ -29,7 +29,5 @@
     "agentic-coding"
   ],
   "homepage": "https://github.com/2j2h5/milepost",
-  "icon": "./logo.png",
-  "documentationUrl": "https://github.com/2j2h5/milepost#readme",
-  "supportUrl": "https://github.com/2j2h5/milepost/issues"
+  "icon": "./logo.png"
 }

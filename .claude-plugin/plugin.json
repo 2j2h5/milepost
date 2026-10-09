@@ -1,0 +1,24 @@
+{
+  "name": "milepost",
+  "version": "0.1.0",
+  "description": "Gives Claude a milestone map for a goal, with PDF review points (proposal, then design and result per milestone) where the developer steers and the map changes.",
+  "userConfig": {
+    "reportsDir": {
+      "type": "string",
+      "title": "Reports folder",
+      "description": "Where documents and state.json are written, relative to the project root.",
+      "default": "docs/reports"
+    }
+  },
+  "author": {
+    "name": "2j2h5"
+  },
+  "repository": "https://github.com/2j2h5/milepost",
+  "keywords": [
+    "milestones",
+    "project-management",
+    "code-review",
+    "pdf-report",
+    "planning"
+  ]
+}

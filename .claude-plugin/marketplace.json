@@ -1,0 +1,6 @@
+{
+  "name": "milepost",
+  "owner": { "name": "2j2h5" },
+  "description": "milepost: a milestone map with PDF review points for Claude Code",
+  "plugins": [{ "name": "milepost", "source": "./" }]
+}

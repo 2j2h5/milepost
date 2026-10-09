@@ -1,0 +1,221 @@
+<!doctype html>
+<!--
+  Report template (milepost plugin). Copy this file, keep <style> as is,
+  replace the sample content. Every component is shown once:
+  title + date, contents, purpose box, sections, table, flow figure,
+  bar chart, attempt box, bullet list with bold leads, references.
+  Rules for what to write: guide/REPORTS.md.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>M2 데이터 모델 설계</title>
+<style>
+  @page {
+    size: A4;
+    margin: 22mm 20mm 20mm;
+    @bottom-center { content: counter(page); font: 9pt "Noto Serif KR", serif; }
+  }
+  :root { --rule: #222; --light: #bbb; --fill: #e8e8e8; --dark: #555; }
+  body {
+    font-family: "Noto Serif KR", "Noto Serif CJK KR", "Source Han Serif K", Batang, "Noto Serif", Georgia, serif;
+    font-size: 10.5pt; line-height: 1.75; color: #111; margin: 0;
+    text-align: justify; word-break: keep-all; overflow-wrap: break-word;
+  }
+  h1 { font-size: 22pt; text-align: center; margin: 4mm 0 2mm; line-height: 1.35; }
+  .date { text-align: center; font-size: 11pt; margin: 0 0 9mm; }
+
+  nav.toc h2 { font-size: 14pt; margin: 0 0 2mm; }
+  nav.toc ol { list-style: none; padding: 0; margin: 0 0 6mm; }
+  nav.toc li { padding: 0.6mm 0; }
+  nav.toc a { color: inherit; text-decoration: none; }
+
+  .purpose { border: 1px solid var(--rule); padding: 3.5mm 5mm; margin: 0 0 9mm; }
+  .purpose p { margin: 0; }
+
+  h2 { font-size: 16pt; margin: 9mm 0 3mm; break-after: avoid; }
+  h2 .no { display: inline-block; width: 12mm; }
+  h3 { font-size: 11.5pt; margin: 6mm 0 2mm; break-after: avoid; }
+  p { margin: 0 0 2.5mm; text-indent: 0.8em; }
+  .purpose p, .attempt p, li p, figcaption, .caption { text-indent: 0; }
+  code { font-family: "D2Coding", Consolas, "Noto Sans Mono CJK KR", monospace; font-size: 0.9em; }
+  ul { margin: 0 0 3mm; padding-left: 5mm; }
+  li { margin-bottom: 1mm; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 9.5pt; line-height: 1.5;
+          border-top: 1.5px solid var(--rule); border-bottom: 1.5px solid var(--rule);
+          margin: 0 0 5mm; break-inside: avoid; text-align: left; }
+  th { font-weight: 700; border-bottom: 1px solid var(--rule); padding: 2mm 2mm; }
+  td { border-bottom: 0.5px solid var(--light); padding: 2mm 2mm; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 700; }
+  table.data td:first-child { font-weight: 400; }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  .caption { font-size: 9.5pt; margin: 4mm 0 1.5mm; break-after: avoid; }
+
+  figure { margin: 5mm 0; break-inside: avoid; }
+  figure svg { display: block; width: 100%; height: auto; }
+  figure svg text { font-family: inherit; }
+  figcaption { font-size: 9.5pt; margin-top: 2mm; line-height: 1.6; }
+
+  .attempt { background: #f2f2f2; border: 1px solid #999; padding: 3mm 4.5mm; margin: 0 0 4mm; break-inside: avoid; }
+  .attempt h4 { margin: 0 0 1.5mm; font-size: 10.5pt; }
+  .attempt p { margin: 0 0 1.5mm; }
+
+  .refs { list-style: none; padding: 0; font-size: 9.5pt; line-height: 1.55; }
+  .refs li { padding-left: 2.2em; text-indent: -2.2em; margin-bottom: 1.2mm; }
+</style>
+</head>
+<body>
+
+<h1>M2 데이터 모델 설계</h1>
+<p class="date">2026. 10. 09.</p>
+
+<nav class="toc">
+  <h2>목차</h2>
+  <ol>
+    <li><a href="#s1">1. 요약</a></li>
+    <li><a href="#s2">2. 배경과 목표</a></li>
+    <li><a href="#s3">3. 설계</a></li>
+    <li><a href="#s4">4. 구현 계획</a></li>
+    <li><a href="#s5">5. 평가 방법</a></li>
+    <li><a href="#s6">6. 위험과 대응</a></li>
+    <li><a href="#refs">참고 출처</a></li>
+  </ol>
+</nav>
+
+<div class="purpose">
+  <p><b>문서의 목적.</b> M2에서 주문 데이터를 한 테이블에서 이벤트 기록으로 바꾸는 설계를 설명하고, 구현에 들어가기 전에 방식과 완료 기준의 승인을 받는다.</p>
+</div>
+
+<h2 id="s1"><span class="no">1</span>요약</h2>
+<p>지금 주문 상태는 한 행을 덮어써서 바뀌므로, 언제 누가 무엇을 바꿨는지 남지 않는다[D1]. 이 마일스톤은 상태 변경을 이벤트로 쌓고 현재 상태는 이벤트에서 계산한다.</p>
+<ul>
+  <li><b>바꾸는 것.</b> 주문 테이블의 상태 열 대신 이벤트 테이블에 변경을 추가만 한다.</li>
+  <li><b>지키는 것.</b> 기존 API 응답은 그대로이며, 조회 지연 p95 50 ms 이하를 유지한다.</li>
+</ul>
+
+<h2 id="s2"><span class="no">2</span>배경과 목표</h2>
+<p>M1 결과 보고서에서 주문 분쟁 12건 중 9건이 변경 이력 부재로 원인을 확인하지 못했다[D2]. 이벤트 기록은 이력 보존의 표준 방식이다[R1].</p>
+
+<p class="caption"><b>표 1. 지금의 문제와 대응.</b> [D1, D2]</p>
+<table>
+  <tr><th>문제</th><th>근거</th><th>대응</th></tr>
+  <tr><td>이력 없음</td><td>분쟁 12건 중 9건 원인 미상</td><td>이벤트 테이블(3.1절)</td></tr>
+  <tr><td>동시 수정</td><td>마지막 쓰기만 남음, 월 3~5건</td><td>버전 번호로 충돌 거부(3.2절)</td></tr>
+</table>
+
+<h2 id="s3"><span class="no">3</span>설계</h2>
+<p>그림 1은 지금(a)과 바뀐 뒤(b)의 흐름이다. 굵은 테두리가 새로 들어가는 부분이다.</p>
+
+<figure>
+<svg viewBox="0 0 700 190" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+    </marker>
+  </defs>
+  <g font-size="11" fill="#111">
+    <text x="0" y="14" font-weight="700">(a) 지금</text>
+    <rect x="0" y="24" width="150" height="46" fill="#fff" stroke="#222"/>
+    <text x="75" y="43" text-anchor="middle" font-weight="700" font-size="12">API</text>
+    <text x="75" y="60" text-anchor="middle" font-size="10" fill="#555">상태 변경 요청</text>
+    <line x1="150" y1="47" x2="198" y2="47" stroke="#222" marker-end="url(#arr)"/>
+    <rect x="200" y="24" width="150" height="46" fill="#e8e8e8" stroke="#222"/>
+    <text x="275" y="43" text-anchor="middle" font-weight="700" font-size="12">주문 테이블</text>
+    <text x="275" y="60" text-anchor="middle" font-size="10" fill="#555">행 덮어쓰기</text>
+
+    <text x="0" y="104" font-weight="700">(b) 바뀐 뒤 (M2)</text>
+    <rect x="0" y="114" width="150" height="46" fill="#fff" stroke="#222"/>
+    <text x="75" y="133" text-anchor="middle" font-weight="700" font-size="12">API</text>
+    <text x="75" y="150" text-anchor="middle" font-size="10" fill="#555">상태 변경 요청</text>
+    <line x1="150" y1="137" x2="198" y2="137" stroke="#222" marker-end="url(#arr)"/>
+    <rect x="200" y="114" width="150" height="46" fill="#e8e8e8" stroke="#222" stroke-width="2.5"/>
+    <text x="275" y="133" text-anchor="middle" font-weight="700" font-size="12">이벤트 테이블</text>
+    <text x="275" y="150" text-anchor="middle" font-size="10" fill="#555">추가만, 버전 검사</text>
+    <line x1="350" y1="137" x2="398" y2="137" stroke="#222" marker-end="url(#arr)"/>
+    <rect x="400" y="114" width="150" height="46" fill="#fff" stroke="#222" stroke-width="2.5"/>
+    <text x="475" y="133" text-anchor="middle" font-weight="700" font-size="12">현재 상태 계산</text>
+    <text x="475" y="150" text-anchor="middle" font-size="10" fill="#555">이벤트 → 상태</text>
+    <rect x="570" y="114" width="128" height="46" fill="#fff" stroke="#222" stroke-dasharray="4 3"/>
+    <text x="634" y="133" text-anchor="middle" font-weight="700" font-size="12">스냅숏</text>
+    <text x="634" y="150" text-anchor="middle" font-size="10" fill="#555">필요하면 M3</text>
+  </g>
+</svg>
+<figcaption><b>그림 1. 지금(a)과 바뀐 뒤(b)의 흐름.</b> 굵은 테두리는 새 부분, 점선은 이번에 하지 않는 선택 사항이다. API는 바뀌지 않는다.</figcaption>
+</figure>
+
+<h3>3.1 이벤트 테이블</h3>
+<p>변경 하나가 한 행이다. 행은 수정하거나 지우지 않으므로 <b>어느 시점의 상태든 다시 계산할 수 있다</b>.</p>
+
+<h2 id="s4"><span class="no">4</span>구현 계획</h2>
+<p class="caption"><b>표 2. 바뀌는 파일.</b></p>
+<table>
+  <tr><th>파일</th><th>변경</th><th>이유</th></tr>
+  <tr><td>db/migrations/002_events.sql</td><td>이벤트 테이블 추가</td><td>3.1절</td></tr>
+  <tr><td>src/orders/state.ts</td><td>이벤트에서 현재 상태 계산</td><td>읽기 경로 교체</td></tr>
+</table>
+
+<h2 id="s5"><span class="no">5</span>평가 방법</h2>
+<p>그림 2는 결과 보고서에서 쓸 막대그래프 견본이다. 막대마다 값을 적고, 비교하는 막대는 같은 축을 쓴다.</p>
+
+<figure>
+<svg viewBox="0 0 700 275" xmlns="http://www.w3.org/2000/svg">
+  <g font-size="11" fill="#111">
+    <line x1="40" y1="220" x2="660" y2="220" stroke="#222"/>
+    <line x1="40" y1="20" x2="40" y2="220" stroke="#222"/>
+    <line x1="40" y1="120" x2="660" y2="120" stroke="#999" stroke-dasharray="4 3"/>
+    <text x="34" y="224" text-anchor="end" font-size="10">0</text>
+    <text x="34" y="124" text-anchor="end" font-size="10">0.5</text>
+    <text x="34" y="24" text-anchor="end" font-size="10">1.0</text>
+    <!-- height = value / 1.0 * 200; y = 220 - height -->
+    <rect x="96" y="24" width="40" height="196" fill="#d6d6d6" stroke="#222"/>
+    <text x="116" y="20" text-anchor="middle" font-size="10">0.98</text>
+    <rect x="144" y="196" width="40" height="24" fill="#555" stroke="#222"/>
+    <text x="164" y="192" text-anchor="middle" font-size="10">0.12</text>
+    <text x="140" y="238" text-anchor="middle">세션 A</text>
+    <rect x="296" y="118" width="40" height="102" fill="#d6d6d6" stroke="#222"/>
+    <text x="316" y="114" text-anchor="middle" font-size="10">0.51</text>
+    <rect x="344" y="208" width="40" height="12" fill="#555" stroke="#222"/>
+    <text x="364" y="204" text-anchor="middle" font-size="10">0.06</text>
+    <text x="340" y="238" text-anchor="middle">세션 B</text>
+    <rect x="496" y="100" width="40" height="120" fill="#d6d6d6" stroke="#222"/>
+    <text x="516" y="96" text-anchor="middle" font-size="10">0.60</text>
+    <rect x="544" y="198" width="40" height="22" fill="#555" stroke="#222"/>
+    <text x="564" y="194" text-anchor="middle" font-size="10">0.11</text>
+    <text x="540" y="238" text-anchor="middle">세션 C (확인용)</text>
+    <rect x="250" y="255" width="12" height="12" fill="#d6d6d6" stroke="#222"/>
+    <text x="268" y="265">기준선</text>
+    <rect x="340" y="255" width="12" height="12" fill="#555" stroke="#222"/>
+    <text x="358" y="265">변경 후</text>
+  </g>
+</svg>
+<figcaption><b>그림 2. 기준선과 변경 후의 오류 비율(견본).</b> 세 세션 모두에서 줄었다. 점선은 0.5 기준선이다.</figcaption>
+</figure>
+
+<p class="caption"><b>표 3. 완료 기준.</b></p>
+<table>
+  <tr><th>기준</th><th>측정</th><th class="num">목표</th></tr>
+  <tr><td>이력 보존</td><td>분쟁 재현 시나리오 12건에서 원인 확인</td><td class="num">12 / 12</td></tr>
+  <tr><td>조회 지연</td><td>부하 시험 p95</td><td class="num">≤ 50 ms</td></tr>
+</table>
+
+<h2 id="s6"><span class="no">6</span>위험과 대응</h2>
+<p>결과 보고서에서는 시도마다 아래 상자를 쓴다(견본).</p>
+<div class="attempt">
+  <h4>① 버전 번호로 충돌 거부 (M2.2) — 채택</h4>
+  <p><b>이유.</b> 동시 수정 시 마지막 쓰기만 남아 월 3~5건의 변경이 사라졌다[D1].</p>
+  <p><b>방식.</b> 이벤트마다 직전 버전을 함께 보내고, 다르면 거부한다(낙관적 동시성 제어)[R2].</p>
+  <p><b>결과.</b> 동시 수정 시험 1,000회에서 유실 0건, 거부 후 재시도 성공 100%.</p>
+</div>
+
+<h2 id="refs">참고 출처</h2>
+<ul class="refs">
+  <li>[R1] Fowler, M. Event Sourcing. martinfowler.com, 2005.</li>
+  <li>[R2] Kung, H. T., Robinson, J. T. On Optimistic Methods for Concurrency Control. ACM TODS, 6(2), pp. 213–226, 1981.</li>
+  <li>[D1] 주문 장애 기록 (docs/incidents.md), 2026.09.</li>
+  <li>[D2] M1 결과 보고서 (docs/reports/orders/M1-result.pdf), 2026.10.02.</li>
+</ul>
+
+</body>
+</html>

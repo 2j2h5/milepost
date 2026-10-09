@@ -86,7 +86,7 @@ Documents follow the language you write in; this run was translated to English f
 
 ## What it runs and sends
 
-- **The plugin's hook** reads `guide/PROTOCOL.md` from the plugin and `docs/reports/state.json` from your project on each request, adds them to Claude's system prompt, and sets the status line. It makes no network requests and writes no files.
+- **The plugin's one hook** (`prompt.compose` in `hooks/register.ts`) runs each time Claude Code builds the system prompt. It reads `guide/PROTOCOL.md` from the plugin and `docs/reports/state.json` from your project, appends one section (id `milepost:protocol`) with their text to the end of the system prompt, and sets the status line. **It changes nothing else:** every other section of the system prompt, your settings and instructions, other plugins' hooks and the tool descriptions pass through unchanged, and none are read, edited, removed or reordered. It makes no network requests and writes no files.
 - **Claude, following the guide and your usual permissions,** searches the web during research, writes documents and `state.json` under `docs/reports/`, runs a local headless browser (Edge, Chrome or Chromium) to turn each document into a PDF, and commits only the way you choose at the proposal review.
 - Nothing is sent anywhere except what Claude Code itself already sends.
 

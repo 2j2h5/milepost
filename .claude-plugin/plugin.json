@@ -1,6 +1,6 @@
 {
   "name": "milepost",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Turns vibe coding into reviewed agentic coding: plans big tasks as a milestone map and lets you review each milestone through PDF reports (proposal, design, result) instead of code diffs.",
   "author": {
     "name": "2j2h5"

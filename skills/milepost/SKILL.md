@@ -39,6 +39,7 @@ Every result document ends by checking the remaining map against what was learne
 
 ## Changing the map
 
+- If the project already numbers its milestones (a spec, a roadmap, earlier reports), use its numbering and follow its documents where they define a milestone; otherwise number them M1, M2, ….
 - Done milestones never change; their documents stay as written.
 - A new milestone takes the next unused number (M4 after M3, even if it comes before it in order); the order is the order of the `milestones` array. A dropped one stays in the array as `dropped`.
 - Each change adds one line to `log` saying what changed and why (the developer's idea, a result, a failure).

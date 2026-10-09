@@ -1,7 +1,7 @@
 {
   "name": "milepost",
   "version": "0.1.0",
-  "description": "Gives Claude a milestone map for a goal, with PDF review points (proposal, then design and result per milestone) where the developer steers and the map changes.",
+  "description": "Plans big tasks as a milestone map and lets you review each milestone through PDF reports (proposal, design, result) instead of code diffs. You steer; the plan adapts.",
   "userConfig": {
     "reportsDir": {
       "type": "string",
@@ -17,9 +17,14 @@
   "license": "MIT",
   "keywords": [
     "milestones",
+    "project-planning",
     "project-management",
+    "roadmap",
     "code-review",
+    "ai-code-review",
     "pdf-report",
-    "planning"
-  ]
+    "design-document",
+    "technical-writing"
+  ],
+  "homepage": "https://github.com/2j2h5/milepost"
 }

@@ -1,12 +1,12 @@
 {
-  "goal": "단위 변환 CLI",
+  "goal": "Unit conversion CLI",
   "dir": "docs/reports/unit-converter-cli",
   "milestones": [
-    { "id": "M1", "name": "변환 핵심", "status": "done" },
-    { "id": "M2", "name": "명령줄 인터페이스", "status": "done" }
+    { "id": "M1", "name": "Conversion core", "status": "done" },
+    { "id": "M2", "name": "Command-line interface", "status": "done" }
   ],
   "current": null,
   "stage": "done",
   "awaitingApproval": false,
-  "status": "단위 변환 CLI · 완료"
+  "status": "Unit conversion CLI · done"
 }

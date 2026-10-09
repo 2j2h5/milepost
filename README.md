@@ -73,7 +73,7 @@ Answer `y` to add the marketplace, then choose a scope.
 
 ## Example output
 
-[`examples/unit-converter-cli`](examples/unit-converter-cli) holds a complete two-milestone goal: the proposal, the design and result of each milestone, and the final `state.json`. This run was in Korean; documents follow the language you write in.
+[`examples/unit-converter-cli`](examples/unit-converter-cli) holds a complete two-milestone goal: the proposal, the design and result of each milestone, and the final `state.json`. Documents follow the language you write in; this run was translated to English for the example.
 
 ## Configuration
 

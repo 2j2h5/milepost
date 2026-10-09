@@ -1,15 +1,7 @@
 {
   "name": "milepost",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Turns vibe coding into reviewed agentic coding: plans big tasks as a milestone map and lets you review each milestone through PDF reports (proposal, design, result) instead of code diffs.",
-  "userConfig": {
-    "reportsDir": {
-      "type": "string",
-      "title": "Reports folder",
-      "description": "Where documents and state.json are written, relative to the project root.",
-      "default": "docs/reports"
-    }
-  },
   "author": {
     "name": "2j2h5"
   },

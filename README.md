@@ -45,6 +45,13 @@ Why difflib and not Levenshtein distance?
 Split M3: ship the export separately.
 ```
 
+In a new session, pick up where you left off:
+
+```
+Continue the milestone plan.
+/milepost:milepost
+```
+
 Small one-off tasks are left alone.
 
 ## How it works
@@ -60,7 +67,7 @@ Small one-off tasks are left alone.
 ```
 
 - The map lives in `docs/reports/state.json`: milestones, current stage, your commit preference, and a log of every change.
-- A hooks module adds the working rules and the current state to Claude's system prompt on every request, and shows progress in the status line (`Link checker › M1 file links · design under review`).
+- milepost is a single skill (`skills/milepost/SKILL.md`). Claude loads it when you start a project-scale goal or ask to continue one, or when you run `/milepost:milepost`. It reads `state.json` first and continues from there.
 - Claude writes each document as HTML from a shared template, renders it to PDF with a headless browser, and checks every page before asking for review.
 
 ## Installation
@@ -86,15 +93,9 @@ Documents follow the language you write in; this run was translated to English f
 
 ## What it runs and sends
 
-- **The plugin's one hook** (`prompt.compose` in `hooks/register.ts`) runs each time Claude Code builds the system prompt. It reads `guide/PROTOCOL.md` from the plugin and `docs/reports/state.json` from your project, appends one section (id `milepost:protocol`) with their text to the end of the system prompt, and sets the status line. **It changes nothing else:** every other section of the system prompt, your settings and instructions, other plugins' hooks and the tool descriptions pass through unchanged, and none are read, edited, removed or reordered. It makes no network requests and writes no files.
-- **Claude, following the guide and your usual permissions,** searches the web during research, writes documents and `state.json` under `docs/reports/`, runs a local headless browser (Edge, Chrome or Chromium) to turn each document into a PDF, and commits only the way you choose at the proposal review.
+- **The plugin itself runs no code.** It contains one skill: instructions (`SKILL.md`, `REPORTS.md`) and an HTML report template. It has no hooks, scripts, MCP servers or executables.
+- **Claude, following the skill and your usual permissions,** searches the web during research, writes documents and `state.json` under `docs/reports/`, runs a local headless browser (Edge, Chrome or Chromium) to turn each document into a PDF, and commits only the way you choose at the proposal review.
 - Nothing is sent anywhere except what Claude Code itself already sends.
-
-## Configuration
-
-| Option | Default | Meaning |
-|---|---|---|
-| `reportsDir` | `docs/reports` | Where documents and `state.json` go, relative to the project root |
 
 ## FAQ
 
@@ -112,7 +113,6 @@ Documents follow the language you write in; this run was translated to English f
 
 ```
 claude plugin validate .
-claude plugin test .
 claude --plugin-dir .
 ```
 

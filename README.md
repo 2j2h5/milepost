@@ -6,7 +6,7 @@ Ever approved an AI-written pull request you never fully read? Or lost track of 
 
 ## Why milepost
 
-| | |
+| Feature | What it means |
 |---|---|
 | **Review documents, not diffs** | Each milestone opens with a design and closes with a result, written for someone who never opens the code: mechanism first, then numbers, with diagrams and tables. |
 | **A map that changes** | Your reply to a review is direction, not a yes or no. Add an idea, drop a feature, question a choice: milestones are added, dropped, split or reordered, and every change is logged with its reason. |
@@ -51,9 +51,9 @@ Small one-off tasks are left alone.
 "Let's build X"
    └─ research ─► Proposal PDF ─► review ─┐   goal, findings, initial map
                                           ▼
-   ┌─────────── for each milestone on the current map ───────────┐
+   ┌───────────── for each milestone on the current map ─────────────┐
    │ Design PDF ─► review ─► build ─► commit ─► Result PDF ─► review │
-   └──────────────────────────────────────────────────────────────┘
+   └─────────────────────────────────────────────────────────────────┘
    each review may approve, revise the document, or change the map
 ```
 

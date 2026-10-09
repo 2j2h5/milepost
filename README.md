@@ -2,11 +2,7 @@
 
 > A [Claude Code](https://code.claude.com) plugin that turns a big request into a **milestone map** and lets you review every milestone through a **PDF report** (proposal → design → result) instead of thousands of lines of diff. You steer; the map changes with you.
 
-Ever approved an AI-written pull request you never fully read? Or lost track of where a multi-day Claude Code project was heading? milepost makes Claude plan the work as milestones, stop at the start and end of each one, and hand you a short, illustrated document that explains what it will do or did, why, and how well it worked.
-
-![Proposal, milestone design and milestone result from a real run](docs/preview.png)
-
-<sub>A proposal, a milestone design and a milestone result from a real run ([all five PDFs](examples/unit-converter-cli)). This run was in Korean; documents follow the language you write in.</sub>
+Ever approved an AI-written pull request you never fully read? Or lost track of where a multi-day Claude Code project was heading? milepost makes Claude plan the work as milestones, stop at the start and end of each one, and hand you a short, illustrated document that explains what it will do or did, why, and how well it worked. See [five PDFs from a real run](examples/unit-converter-cli).
 
 ## Why milepost
 
@@ -19,8 +15,6 @@ Ever approved an AI-written pull request you never fully read? Or lost track of 
 | **Small context** | The map and documents live in files, so each milestone runs in a fresh session. |
 
 ## What the documents look like
-
-![A flow diagram, an attempt box and a results chart](docs/figures.png)
 
 Every document shares one design: serif body, ruled tables, numbered figures and tables, inline SVG diagrams, cited sources, and a title that says where in the project you are.
 
@@ -79,7 +73,7 @@ Answer `y` to add the marketplace, then choose a scope.
 
 ## Example output
 
-[`examples/unit-converter-cli`](examples/unit-converter-cli) holds a complete two-milestone goal: the proposal, the design and result of each milestone, and the final `state.json`.
+[`examples/unit-converter-cli`](examples/unit-converter-cli) holds a complete two-milestone goal: the proposal, the design and result of each milestone, and the final `state.json`. This run was in Korean; documents follow the language you write in.
 
 ## Configuration
 

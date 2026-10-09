@@ -1,7 +1,7 @@
 {
   "name": "milepost",
   "version": "0.1.0",
-  "description": "Plans big tasks as a milestone map and lets you review each milestone through PDF reports (proposal, design, result) instead of code diffs. You steer; the plan adapts.",
+  "description": "Turns vibe coding into reviewed agentic coding: plans big tasks as a milestone map and lets you review each milestone through PDF reports (proposal, design, result) instead of code diffs.",
   "userConfig": {
     "reportsDir": {
       "type": "string",
@@ -24,7 +24,9 @@
     "ai-code-review",
     "pdf-report",
     "design-document",
-    "technical-writing"
+    "technical-writing",
+    "vibe-coding",
+    "agentic-coding"
   ],
   "homepage": "https://github.com/2j2h5/milepost"
 }

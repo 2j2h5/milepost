@@ -2,6 +2,8 @@
 
 > A [Claude Code](https://code.claude.com) plugin that turns a big request into a **milestone map** and lets you review every milestone through a **PDF report** (proposal → design → result) instead of thousands of lines of diff. You steer; the map changes with you.
 
+**From vibe coding to reviewed agentic coding.** Vibe coding accepts AI output nobody reads; reading every diff does not scale either. milepost sits in between: Claude works on its own inside a milestone, and you steer between milestones by reading a short document instead of the code.
+
 Ever approved an AI-written pull request you never fully read? Or lost track of where a multi-day Claude Code project was heading? milepost makes Claude plan the work as milestones, stop at the start and end of each one, and hand you a short, illustrated document that explains what it will do or did, why, and how well it worked. See [five PDFs from a real run](examples/unit-converter-cli).
 
 ## Why milepost
@@ -84,6 +86,8 @@ Answer `y` to add the marketplace, then choose a scope.
 ## FAQ
 
 **Is this an autonomous agent?** No. Claude stops after every document and treats your reply as direction.
+
+**How is this different from vibe coding?** Vibe coding skips both the plan and the review. milepost keeps the speed of letting Claude work on its own, but adds a plan you agreed to and a review point at the start and end of every milestone, so you always know what was built and why without reading every line.
 
 **Does it commit for me?** Only the way you say. At the proposal review Claude asks how milestone work should be committed (current branch, a branch and PR per milestone, or not at all) and follows that answer.
 

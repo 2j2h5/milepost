@@ -103,7 +103,7 @@ Documents follow the language you write in; this run was translated to English f
 
 **How is this different from vibe coding?** Vibe coding skips both the plan and the review. milepost keeps the speed of letting Claude work on its own, but adds a plan you agreed to and a review point at the start and end of every milestone, so you always know what was built and why without reading every line.
 
-**Does it commit for me?** Only the way you say. At the proposal review Claude asks how milestone work should be committed (current branch, a branch and PR per milestone, or not at all) and follows that answer.
+**Does it commit for me?** Only the way you say. At the proposal review Claude asks two things once: how milestone work should be committed (current branch, a branch and PR per milestone, or not at all), and whether the `milepost/` folder goes into git with it, so teammates can review the documents too, or stays out through `.gitignore`, private to your machine. It follows both answers from then on.
 
 **Which languages?** Documents are written in the language you use with Claude.
 

@@ -14,7 +14,7 @@ If a request might be a small one-off task rather than a project-scale goal, ask
 Look for `milepost/state.json` at the project root.
 
 - **It exists:** read it (with `log`), the current goal's proposal summary and milestone plan, and its latest design and result documents (their HTML) before acting. Then continue from `current` and `stage`.
-- **Only `docs/reports/state.json` exists** (an older milepost layout): tell the developer, then move everything into the layout under Documents (each goal folder's HTML, PDFs, images and notes to their own folders; `state.json` to `milepost/state.json`, with `dir` replaced by `slug`), fix the image paths in the HTML, and remove the emptied old folders. If the old folder was ignored by git, ask before changing `.gitignore` so the new one stays ignored. Then continue as above.
+- **Only `docs/reports/state.json` exists** (an older milepost layout): tell the developer, then move everything into the layout under Documents (each goal folder's HTML, PDFs, images and notes to their own folders; `state.json` to `milepost/state.json`, with `dir` replaced by `slug`), fix the image paths in the HTML, and remove the emptied old folders. If the old folder was ignored by git, record `"folder": "ignore"` and, after asking, replace its `.gitignore` entry with `milepost/` so the new folder stays ignored. Then continue as above.
 - **Neither exists:** start a new goal with the proposal below.
 
 ## Review points
@@ -52,7 +52,16 @@ The map, the log and the documents carry everything a milestone needs, so each m
 
 ## Commits
 
-Commits need the developer's say-so, so get it once up front: in the proposal's review message, ask directly how milestone work should be committed, offering what fits the project (its documented conventions or history first; otherwise current branch / a branch and PR per milestone / no commits). Store the answer as `git` and follow it from then on: commit a milestone's work before writing its result so the document can cite the commit, and commit the result document with the state file after the review.
+Commits need the developer's say-so, so get it once up front: in the proposal's review message, ask two direct questions.
+
+1. **The work:** how milestone work should be committed, offering what fits the project (its documented conventions or history first; otherwise current branch / a branch and PR per milestone / no commits).
+2. **The `milepost/` folder:** commit it with the work, so teammates can review the documents too, or keep it out of git through `.gitignore`. Say the trade-off in one line: kept out, the documents and the map in `state.json` exist only on this machine, and another clone starts without them.
+
+Store both answers in `git` and follow them from then on without asking again:
+
+- Commit a milestone's work before writing its result, so the document can cite the commit.
+- **Folder committed:** after each review, commit the document with `state.json` the same way as the work.
+- **Folder kept out:** add `milepost/` to `.gitignore` right away, to be committed with the next commit of the work if there is one (if the folder is already tracked, also run `git rm -r --cached milepost`), and never commit anything under it.
 
 ## Documents
 
@@ -92,10 +101,10 @@ Create it when the first goal starts; update it whenever the stage or the map ch
   "current": "M1",
   "stage": "research | proposal | design | build | result | done",
   "awaitingApproval": false,
-  "git": "the developer's commit answer, e.g. commit to current branch; null until asked",
+  "git": { "work": "the developer's answer, e.g. a branch and PR per milestone", "folder": "commit | ignore" },
   "log": ["2026-10-09 M3 split into M3 and M4 after the M2 result review: the developer wants the export separate"],
   "history": [{ "goal": "earlier goal", "slug": "earlier-slug", "ended": "2026-10-01", "how": "done | topic changed", "note": "one line" }]
 }
 ```
 
-`current` is null before the first milestone starts and after the goal is done. `history` is empty for the first goal.
+`current` is null before the first milestone starts and after the goal is done. `history` is empty for the first goal. `git` is null until the developer answers at the first proposal review.

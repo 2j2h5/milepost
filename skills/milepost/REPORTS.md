@@ -63,6 +63,7 @@ Every section from 2 on should have at least one figure or table; a page of text
 - **Table**: caption *above*: `Table N. Bold title. Optional note. [cite]` [`표 N.`]. Heavy rule above and below, light rules between rows, first column bold when it holds row labels (add `class="data"` to the table when the first column is data, such as formulas or values). Numbers right-aligned or consistently formatted.
 - **Numbered steps**: an `<ol>` or bold-led paragraphs; never ①②③ inside a bulleted list (two markers per line).
 - **Figure**: caption *below*: `Figure N. Bold title. One or two sentences saying what to look at.` [`그림 N.`]. Number figures and tables separately, in order, and refer to each in the text.
+- **Where pictures live**: draw diagrams and charts as inline SVG in the HTML. Use an image file only for what SVG cannot show (a screenshot, a photo, a plot produced from data by a script); save it in `milepost/images/<goal-slug>/<milestone id>/` and refer to it by relative path.
 - **Drawing style** (inline SVG, grayscale only, copy the patterns in the template):
   - boxes: white or light gray fill, thin dark stroke; **thick stroke** marks what is new or central; **dashed** marks optional, not done yet, or cross-cutting.
   - arrows for flow; labels inside boxes in two lines (bold name, small detail).
@@ -79,10 +80,10 @@ One `div.attempt` per attempt:
 
 ## Rendering and checking
 
-Write the HTML next to where the PDF goes, then render with a Chromium browser (Edge or Chrome) in headless mode:
+Write the HTML in `milepost/html/<goal-slug>/` and render it to the same name in `milepost/pdf/<goal-slug>/` with a Chromium browser (Edge or Chrome) in headless mode:
 
 ```
-<browser> --headless --disable-gpu --no-pdf-header-footer --print-to-pdf="<abs path>.pdf" "file:///<abs path>.html"
+<browser> --headless --disable-gpu --no-pdf-header-footer --print-to-pdf="<project>/milepost/pdf/<goal-slug>/<name>.pdf" "file:///<project>/milepost/html/<goal-slug>/<name>.html"
 ```
 
 Windows Edge: `C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe`. macOS Chrome: `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`. Linux: `chromium` or `google-chrome`.

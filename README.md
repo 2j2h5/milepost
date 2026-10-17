@@ -66,7 +66,7 @@ Small one-off tasks are left alone.
    each review may approve, revise the document, or change the map
 ```
 
-- The map lives in `docs/reports/state.json`: milestones, current stage, your commit preference, and a log of every change.
+- Everything lives in one `milepost/` folder at the project root: `state.json` (the map: milestones, current stage, your commit preference, a log of every change, and earlier goals), then `pdf/`, `html/`, `images/` and `notes/`, each split by goal. A goal ends when its map is finished or when you change the topic; the next one gets its own folders.
 - milepost is a single skill (`skills/milepost/SKILL.md`). Claude loads it when you start a project-scale goal or ask to continue one, or when you run `/milepost:milepost`. It reads `state.json` first and continues from there.
 - Claude writes each document as HTML from a shared template, renders it to PDF with a headless browser, and checks every page before asking for review.
 
@@ -94,7 +94,7 @@ Documents follow the language you write in; this run was translated to English f
 ## What it runs and sends
 
 - **The plugin itself runs no code.** It contains one skill: instructions (`SKILL.md`, `REPORTS.md`) and an HTML report template. It has no hooks, scripts, MCP servers or executables.
-- **Claude, following the skill and your usual permissions,** searches the web during research, writes documents and `state.json` under `docs/reports/`, runs a local headless browser (Edge, Chrome or Chromium) to turn each document into a PDF, and commits only the way you choose at the proposal review.
+- **Claude, following the skill and your usual permissions,** searches the web during research, writes documents and `state.json` under `milepost/`, runs a local headless browser (Edge, Chrome or Chromium) to turn each document into a PDF, and commits only the way you choose at the proposal review.
 - Nothing is sent anywhere except what Claude Code itself already sends.
 
 ## FAQ

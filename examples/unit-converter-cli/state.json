@@ -1,6 +1,6 @@
 {
   "goal": "Unit conversion CLI",
-  "dir": "docs/reports/unit-converter-cli",
+  "slug": "unit-converter-cli",
   "milestones": [
     { "id": "M1", "name": "Conversion core", "status": "done" },
     { "id": "M2", "name": "Command-line interface", "status": "done" }

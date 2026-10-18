@@ -13,7 +13,7 @@ If a request might be a small one-off task rather than a project-scale goal, ask
 
 Look for `milepost/state.json` at the project root.
 
-- **It exists:** read it (with `log`), the current goal's proposal summary and milestone plan, and its latest design and result documents (their HTML) before acting. Then continue from `current` and `stage`.
+- **It exists:** read it (with `log`), the current goal's proposal summary and milestone plan, and its latest design and result documents (their HTML) before acting. Then handle any unhandled audit (under Changing the map) and continue from `current` and `stage`.
 - **Only `docs/reports/state.json` exists** (an older milepost layout): tell the developer, then move everything into the layout under Documents (each goal folder's HTML, PDFs, images and notes to their own folders; `state.json` to `milepost/state.json`, with `dir` replaced by `slug`), fix the image paths in the HTML, and remove the emptied old folders. If the old folder was ignored by git, record `"folder": "ignore"` and, after asking, replace its `.gitignore` entry with `milepost/` so the new folder stays ignored. Then continue as above.
 - **Neither exists:** start a new goal with the proposal below.
 
@@ -44,6 +44,7 @@ Every result document ends by checking the remaining map against what was learne
 - Done milestones never change; their documents stay as written.
 - A new milestone takes the next unused number (M4 after M3, even if it comes before it in order); the order is the order of the `milestones` array. A dropped one stays in the array as `dropped`.
 - Each change adds one line to `log` saying what changed and why (the developer's idea, a result, a failure).
+- **Audits:** milepost-audit adds a `log` line `<date> A<n> audit at …`. While one has no later line saying what the map did about it, read that report's fix order first and propose, per fix group, a new milestone, a fold into a planned one or not now, with the reason; agree before writing the next document, then log the outcome citing `A<n>`.
 - The next document has a short "changes to the map" paragraph in its background section, citing the review or result that caused them.
 
 ## One session per milestone

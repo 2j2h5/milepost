@@ -1,6 +1,6 @@
 # Writing the documents
 
-Three kinds, one design. The reader is a developer who will approve the work without reading the code, so each document must explain the mechanism, show it in figures and tables, and back every claim with a number or a source.
+Three kinds, one design, plus the audit report that milepost-audit writes (below). The reader is a developer who will approve the work without reading the code, so each document must explain the mechanism, show it in figures and tables, and back every claim with a number or a source.
 
 Headings below are given in English with Korean in brackets. Write them in the developer's language, worded the same way in every document of the goal.
 
@@ -46,6 +46,20 @@ What goes where:
   - *Results*: the combined outcome against the baseline, as charts and tables; anything the developer judged by eye is reported as such.
   - *Discussion*: what was learned (bold lead sentence + explanation) and the limits of the evidence.
   - *Next steps*: the remaining map checked against what was learned: a table of the remaining milestones (milestone · as planned · proposed change and why), "no change" where none is warranted, followed by open decisions for the developer.
+
+## Audit report
+
+milepost-audit writes a fourth kind, `A<n>-audit`, titled `A<n> Audit report` [`A1 감사 보고서`], with the same front page, figures, tables and checks. The reader acts on it without opening the code, so each finding says plainly what happens and where. Severities, verdicts, merges and the fix order are the triage's, never the writer's.
+
+| | Audit report |
+|---|---|
+| 1 | Summary [요약]: findings by severity and by verdict, the first three fix groups, time taken |
+| 2 | Scope and method [범위와 방법]: target, revision, scope (files, lines, KB) and what was left out, lenses, a figure of the steps, and that commands ran only in temporary copies |
+| 3 | Findings [지적]: one `div.attempt` box per high and medium finding, headed `<ID> <title> — <severity> · <verdict>`: location, scenario, evidence in short, fix, merged IDs, and for a plausible one the step not checked. Low and improvement findings one table row each |
+| 4 | Fix order [고치는 순서]: table (order · group · findings · change), then one line saying milepost will propose map changes from it |
+| 5 | Filtered out [걸러낸 것]: refuted findings (claim · why refuted) and merged duplicates |
+| 6 | Limits [한계]: what one run misses, what the lenses leave out (deep security review: claude-security), how many stay plausible |
+| | References [참고 출처]: the revision and the audit folder's files |
 
 ## Writing
 

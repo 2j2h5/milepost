@@ -17,7 +17,7 @@ This skill usually runs in the conversation that built the code, so that convers
 - **Folder:** `milepost/notes/<slug>/A<n>-audit/`, where `<slug>` is the current goal's slug in `milepost/state.json`, or `audit` when there is none (an older `docs/reports/state.json` does not count), and `A<n>` is the next unused number in that folder.
 - **Start time:** note it, for the report.
 - **Revision:** `git rev-parse --short HEAD`, plus `dirty` if `git status --porcelain` shows changes outside `milepost/`.
-- **Resume:** if the developer points at an existing `A<n>-audit` folder, use it and start at the first step whose output is missing or incomplete (`map.md`, a process findings file, a lens's findings file, a finding without a verdict, `triage.md`, the report), and redo only what is missing.
+- **Resume:** if the developer points at an existing `A<n>-audit` folder, use it and start at the first step whose output is missing or incomplete (`map.md`, a process findings file, a process finding without a verdict, `scope.md`, a lens's findings file, a finding without a verdict, `triage.md`, the report), and redo only what is missing.
 
 ## 2. Scope
 
@@ -35,7 +35,7 @@ Tell the developer the target, revision, scope (files, lines, KB), what was left
 
 ## 4. Map
 
-Call the `milepost:audit-recon` agent with the target folder, the excluded paths, the revision line and the map path `<folder>/map.md`, and nothing else.
+Call the `milepost:audit-recon` agent with the target folder, the excluded paths, the revision line and the map path `<folder>/map.md`, and nothing else. When step 5 runs, call its agents in the same message; neither uses the other's output.
 
 Check that `map.md` has its seven sections and that promises and claims carry sources before going on.
 
@@ -45,9 +45,13 @@ Skip this step when `milepost/state.json` does not exist. Otherwise the targets 
 
 Check that each findings file exists and that every finding has its Target, Question, Kind, Claim, Evidence, Knowable then, Paths and Map effect lines; call an agent again if its file is missing.
 
+**Verify them.** Group the process findings by their Target (PR, each MS milestone, MC) and batch them as step 7 does. Call one `milepost:audit-refute` agent per batch, all in one message, with what step 7 gives it plus the path of `milepost/state.json` and the documents folder, and the verdicts path `<folder>/process/verdicts/P<k>.md`. Check as in step 7 that every process finding has one verdict, with a Knowable then line, and a Scope line when its Kind is better option or unnecessary.
+
+**Scope.** Write `<folder>/scope.md`: for each finding of Kind better option or unnecessary whose verdict is confirmed, the files on its Scope line that are in the scope of step 2, with the finding ID and their line count; or `none`. Take nothing from a finding's own Paths line and add no judgement of your own.
+
 ## 6. Lenses
 
-Call one `milepost:audit-lens` agent per lens, all in one message so they run in parallel. Give each the target folder, the excluded paths, the revision line, the map path, its lens name, the absolute path of `LENSES.md` and the findings path `<folder>/findings/<lens>.md`, and nothing else. Lenses never see each other's findings.
+Call one `milepost:audit-lens` agent per lens, all in one message so they run in parallel. Give each the target folder, the excluded paths (for concurrency, supply and maintain also the files in `scope.md`, without the reasons), the revision line, the map path, its lens name, the absolute path of `LENSES.md` and the findings path `<folder>/findings/<lens>.md`, and nothing else. Lenses never see each other's findings.
 
 Check that each findings file exists and that every finding has its Location, Related, Scenario, Evidence, Fix and Severity lines; call a lens again if its file is missing.
 
@@ -55,7 +59,7 @@ Check that each findings file exists and that every finding has its Location, Re
 
 Grep the findings files for each finding's heading and `- Location:` line; do not read them whole. Group the findings by the path of their first Location, then fill batches of up to six: take the groups from largest to smallest and put each into the first batch with room for it, cutting a group of more than six into sixes. Call one `milepost:audit-refute` agent per batch, all in one message. Give each the target folder, the excluded paths, the revision line, its findings as findings file paths with the IDs to check in each, and the verdicts path `<folder>/verdicts/V<k>.md`, and nothing else: no finding text, no map, no comment.
 
-Check with Grep that every finding has exactly one verdict with Verdict, Checked and Reason lines; call the agent again for any finding that is missing, on its own. Then write `<folder>/rejected.md`: each refuted finding's text followed by its three verdict lines, copied as written.
+Check with Grep that every finding has exactly one verdict with Verdict, Checked and Reason lines; call the agent again for any finding that is missing, on its own. Then write `<folder>/rejected.md`: each refuted finding's text, code or process, followed by its verdict lines, copied as written.
 
 ## 8. Triage
 

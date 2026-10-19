@@ -30,7 +30,7 @@ Take each finding from its file with Grep: its heading line (`### <ID> `) and th
 
 ## Process findings
 
-IDs starting with PR, MS or MC are about how the project was planned and built, not about one code path. Check every quote against the document it names, every commit and `path:line` with `git show` and the code, and every cited source by opening it. For a better option, check that it exists and fits this project's platform, versions and stated constraints. For a deferred or dropped item, look for a later document or log line that carries it. Do not run anything for these.
+IDs starting with PR, MS or MC are about how the project was planned and built, not about one code path. Check every quote against the document it names, every commit and `path:line` with `git show` and the code, and every cited source by opening it. For a better option, check that it exists and fits this project's platform, versions and stated constraints. For a deferred or dropped item, look for a later document or log line that carries it. When a finding leads into code, retrace and run that part as you would a code finding, and give reproduced if you saw it fail.
 
 | Verdict | When |
 |---|---|

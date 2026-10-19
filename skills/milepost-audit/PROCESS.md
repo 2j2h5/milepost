@@ -51,7 +51,7 @@ Q1 only, in two passes by two agents: one lists the decisions without their reas
 - maintenance and security: updates, diagnostics, trust in inputs, permissions;
 - management and process: the order and split of milestones, map changes.
 
-When the goal touches an area but no document says how it is done, list it with `Chosen: not stated`. Constraints are only what the goal requires (platform, language, versions, stated requirements), never a limit given as the reason for a choice. List at most 30, at least one per proposal and design, larger decisions first.
+Decisions are not only in a design's main mechanism: they also sit in its plan for checking and measuring, in its order of work and the tools it makes or uses, and in a result's proposed changes for the remaining milestones. Go through every document, results included, and list up to three decisions from each (six from the proposal), larger first. Then, for each area no listed decision covers, add one entry with `Chosen: not stated`. Constraints are only what the goal requires (platform, language, versions, stated requirements), never a limit given as the reason for a choice.
 
 ```markdown
 ### D-<n> <short name>

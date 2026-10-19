@@ -17,7 +17,7 @@ This skill usually runs in the conversation that built the code, so that convers
 - **Folder:** `milepost/notes/<slug>/A<n>-audit/`, where `<slug>` is the current goal's slug in `milepost/state.json`, or `audit` when there is none (an older `docs/reports/state.json` does not count), and `A<n>` is the next unused number in that folder.
 - **Start time:** note it, for the report.
 - **Revision:** `git rev-parse --short HEAD`, plus `dirty` if `git status --porcelain` shows changes outside `milepost/`.
-- **Resume:** if the developer points at an existing `A<n>-audit` folder, use it and start at the first step whose output is missing or incomplete (`map.md`, a process findings file, `decisions.md`, a DE findings file, a process finding without a verdict, `scope.md`, a lens's findings file, a finding without a verdict, `triage.md`, the report), and redo only what is missing.
+- **Resume:** if the developer points at an existing `A<n>-audit` folder, use it and start at the first step whose output is missing or incomplete (`map.md`, a process findings file, a process finding without a verdict, `scope.md`, a lens's findings file, a finding without a verdict, `triage.md`, the report), and redo only what is missing.
 
 ## 2. Scope
 
@@ -41,11 +41,9 @@ Check that `map.md` has its seven sections and that promises and claims carry so
 
 ## 5. Process
 
-Skip this step when `milepost/state.json` does not exist. Otherwise the targets are the current goal's proposal (PR), the milestones that have a design document in `milepost/html/<slug>/`, in map order and in batches of up to four (MS), the map changes (MC) and the decisions (DE). Call one `milepost:audit-process` agent per target or batch, all in one message. Give each the target folder, the revision line, the path of `milepost/state.json`, the documents folder `milepost/html/<slug>/`, its target (`PR`, `MS` with its milestone IDs, or `MC`), the absolute path of `PROCESS.md` beside this file and the findings path `<folder>/process/<PR | MS1 | MS2 … | MC>.md`, and nothing else. In the same message call the `milepost:audit-decisions` agent with the state file path, the documents folder, the `PROCESS.md` path and the decisions path `<folder>/process/decisions.md`, and nothing else.
+Skip this step when `milepost/state.json` does not exist. Otherwise the targets are the current goal's proposal (PR), the milestones that have a design document in `milepost/html/<slug>/`, in map order and in batches of up to four (MS), and the map changes (MC). Call one `milepost:audit-process` agent per target or batch, all in one message. Give each the target folder, the revision line, the path of `milepost/state.json`, the documents folder `milepost/html/<slug>/`, its target (`PR`, `MS` with its milestone IDs, or `MC`), the absolute path of `PROCESS.md` beside this file and the findings path `<folder>/process/<PR | MS1 | MS2 … | MC>.md`, and nothing else.
 
-When `decisions.md` exists, grep its `### D-` headings and call one `milepost:audit-options` agent per five decisions, all in one message, with the revision line, the decisions path and its IDs, the state file path, the documents folder, the `PROCESS.md` path and the findings path `<folder>/process/DE<k>.md`, and nothing else.
-
-Check that each findings file exists, that every finding has its Target, Question, Kind, Claim, Evidence, Knowable then, Paths and Map effect lines, and that each DE file lists all its decision IDs under Decisions checked; call an agent again if its file is missing.
+Check that each findings file exists and that every finding has its Target, Question, Kind, Claim, Evidence, Knowable then, Paths and Map effect lines; call an agent again if its file is missing.
 
 **Verify them.** Group the process findings by their Target (PR, each MS milestone, MC) and batch them as step 7 does. Call one `milepost:audit-refute` agent per batch, all in one message, with what step 7 gives it plus the path of `milepost/state.json` and the documents folder, and the verdicts path `<folder>/process/verdicts/P<k>.md`. Check as in step 7 that every process finding has one verdict, with a Knowable then line, and a Scope line when its Kind is better option or unnecessary.
 

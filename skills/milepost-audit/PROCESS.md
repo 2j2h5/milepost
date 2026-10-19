@@ -37,37 +37,6 @@ Start from: the state file's log and milestone list, and each design's paragraph
 - Work deferred to a later milestone: whether a later document still carries it.
 - Changes logged without a reason.
 
-## DE: decisions
-
-Q1 only, in two passes by two agents: one lists the decisions without their reasons, the other searches for better options before reading the reasons.
-
-**Listing.** A decision is a choice of how to meet a need. In each document (the proposal, each design and result, the state file's log) check these areas:
-
-- requirements and scope: the goal's size, success criteria, what is left out;
-- architecture and design: overall structure, the core mechanism, how the parts talk;
-- construction: language, libraries, platform features, parts built by hand;
-- testing and quality: how the work is checked and measured, and whether that is automated;
-- operations and configuration: build, install, release, what the repository tracks;
-- maintenance and security: updates, diagnostics, trust in inputs, permissions;
-- management and process: the order and split of milestones, map changes.
-
-Decisions are not only in a design's main mechanism: they also sit in its plan for checking and measuring, in its order of work and the tools it makes or uses, and in a result's proposed changes for the remaining milestones. Go through every document, results included, and list up to three decisions from each (six from the proposal), larger first. Then, for each area no listed decision covers, add one entry with `Chosen: not stated`. Constraints are only what the goal requires (platform, language, versions, stated requirements), never a limit given as the reason for a choice.
-
-```markdown
-### D-<n> <short name>
-- Source: <document file and section, or log date>, decided <date>
-- Area: <one of the areas above>
-- Need: <what had to be achieved>
-- Constraints: <what the goal requires, or none>
-- Chosen: <what was chosen, or not stated>
-```
-
-**Searching.** For each decision, in this order:
-
-1. From its Need, Constraints and Area alone, find how this need is commonly met on the same platform: official documentation, widely used projects, standards. Note up to three common ways with their URLs.
-2. If Chosen is one of them, or none fits the Constraints, record that and stop.
-3. Otherwise read the Source section and the later documents and log lines about it. If they weighed the common way and set it aside, check that reason against its source. Write a finding only when there is no reason, the source contradicts it, or it does not apply to this project. Kind is better option, or unnecessary when the common way makes the step itself needless.
-
 ## Evidence
 
 A finding needs at least one of:

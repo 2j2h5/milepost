@@ -1,7 +1,7 @@
 {
   "name": "milepost",
-  "version": "0.3.1",
-  "description": "Turns vibe coding into reviewed agentic coding: plans big tasks as a milestone map and lets you review each milestone through PDF reports (proposal, design, result) instead of code diffs.",
+  "version": "0.4.0",
+  "description": "Turns vibe coding into reviewed agentic coding: plans big tasks as a milestone map and lets you review each milestone through PDF reports (proposal, design, result) instead of code diffs, and audits the whole repository, plan first, from an outsider's view.",
   "author": {
     "name": "2j2h5"
   },
@@ -18,7 +18,9 @@
     "design-document",
     "technical-writing",
     "vibe-coding",
-    "agentic-coding"
+    "agentic-coding",
+    "code-audit",
+    "repository-audit"
   ],
   "homepage": "https://github.com/2j2h5/milepost",
   "icon": "./logo.png"

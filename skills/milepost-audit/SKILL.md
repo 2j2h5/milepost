@@ -63,11 +63,11 @@ Check with Grep that every finding has exactly one verdict with Verdict, Checked
 
 ## 8. Triage
 
-Call the `milepost:audit-triage` agent with the revision line, the map path, `<folder>/findings/`, `<folder>/verdicts/` and the path `<folder>/triage.md`, and nothing else. Check that every finding not refuted appears once, as an entry or under an entry's Merged line, that each entry has its Merged, Severity, Verdict and Why lines, and that each fix group has Findings, Change and Why here.
+Call the `milepost:audit-triage` agent with the revision line, the map path, `<folder>/findings/`, `<folder>/verdicts/`, when step 5 ran also `<folder>/process/` and `<folder>/process/verdicts/`, and the path `<folder>/triage.md`, and nothing else. Check that every finding not refuted, code or process, appears once, as an entry or under an entry's Merged line, that each entry has its Merged, Severity, Verdict and Why lines, and that each fix group has Findings, Change, Why here and Map effect.
 
 ## 9. Report
 
-Read `REPORTS.md` in the milepost skill's folder (`../milepost/` beside this file) and write the audit report it describes, starting from a copy of its `template/report.html`: `milepost/html/<slug>/A<n>-audit.html`, rendered to `milepost/pdf/<slug>/A<n>-audit.pdf`, with `<slug>` as in step 1. Take each finding's scenario, evidence and fix from its findings file, its check from its verdict, and severities, merges and the fix order from `triage.md`. Translate and shorten into the developer's language, but never change a severity, a verdict, a merge or the order, and add no judgement of your own. Check the pages as REPORTS.md says, and delete any page images or other scratch files you made.
+Read `REPORTS.md` in the milepost skill's folder (`../milepost/` beside this file) and write the audit report it describes, starting from a copy of its `template/report.html`: `milepost/html/<slug>/A<n>-audit.html`, rendered to `milepost/pdf/<slug>/A<n>-audit.pdf`, with `<slug>` as in step 1. Take each finding's scenario, evidence and fix (for a process finding its claim, evidence and map effect) from its findings file, its check and Knowable then from its verdict, the left-out paths from `scope.md`, and severities, merges, the fix order and map effects from `triage.md`. Translate and shorten into the developer's language, but never change a severity, a verdict, a merge or the order, and add no judgement of your own. Check the pages as REPORTS.md says, and delete any page images or other scratch files you made.
 
 ## 10. Reply
 

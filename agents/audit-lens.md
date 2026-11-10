@@ -3,7 +3,6 @@ name: audit-lens
 description: Reviews a repository through one lens (trust, concurrency, failure, supply or maintain) for a milepost-audit run, starting from the recon map, and writes findings with a concrete trigger and evidence for each. Writes only the findings file it is given. Called by the milepost-audit skill.
 tools: Read, Glob, Grep, Bash, Write
 model: sonnet
-omitClaudeMd: true
 ---
 
 # Lens review

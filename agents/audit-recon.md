@@ -3,7 +3,6 @@ name: audit-recon
 description: Maps a repository for a milepost-audit run - its files, processes, trust boundaries, the promises it makes to users and the claims its documents make, each with a file:line source. Writes only the map file it is given. Called by the milepost-audit skill.
 tools: Read, Glob, Grep, Bash, Write
 model: sonnet
-omitClaudeMd: true
 ---
 
 # Recon

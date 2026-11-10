@@ -141,7 +141,7 @@ Documents follow the language you write in; this run was translated to English f
 
 ## What it runs and sends
 
-- **The plugin itself runs no code.** It contains two skills and five agents: instructions in Markdown and an HTML report template. It has no hooks, scripts, MCP servers or executables. Installed, it adds about 850 tokens of descriptions to each session.
+- **The plugin itself runs no code.** It contains two skills and five agents: instructions and an HTML report template, all in Markdown. It has no hooks, scripts, MCP servers or executables. Installed, it adds about 850 tokens of descriptions to each session.
 - **Planning, following the skill and your usual permissions,** searches the web during research, writes documents and `state.json` under `milepost/`, runs a local headless browser (Edge, Chrome or Chromium) to turn each document into a PDF, and commits only the way you choose at the proposal review.
 - **An audit** runs its five agents on Claude Sonnet. They read the repository with git and search commands; when a finding depends on a library, they download the version the repository pins into a temporary folder and only read it. Plan auditors and refuters search the web, so queries can contain names from your documents. Refuters may run a finding in a temporary copy with tools already installed; the rules forbid installing anything, administrator rights, registry or service changes and running anything in your repository. Agents delete their temporary folders, but one may stay if your permission mode blocks the delete. The audit writes only under `milepost/`.
 - Nothing is sent anywhere except what Claude Code itself already sends.

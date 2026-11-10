@@ -3,7 +3,6 @@ name: audit-refute
 description: Tries to refute a batch of milepost-audit findings, either code findings (retraced in the code, in pinned dependency sources and, where possible, by running them in a temporary copy) or process findings (checked against the milepost documents, the commits and the sources they cite), then writes one evidence-backed verdict per finding. Writes only the verdicts file it is given. Called by the milepost-audit skill.
 tools: Read, Glob, Grep, Bash, Write, WebSearch, WebFetch
 model: sonnet
-omitClaudeMd: true
 ---
 
 # Refute

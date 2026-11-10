@@ -66,7 +66,7 @@ Store both answers in `git` and follow them from then on without asking again:
 
 ## Documents
 
-Before writing any document, read `REPORTS.md` in this skill's folder and start from a copy of `template/report.html` in the same folder. Write in the language the developer uses with you.
+Before writing any document, read `REPORTS.md` in this skill's folder and start from the page in `TEMPLATE.md` in the same folder. Write in the language the developer uses with you.
 
 Everything milepost keeps lives in one folder at the project root, sorted by kind and then by goal:
 

@@ -3,7 +3,6 @@ name: audit-process
 description: Audits one part of a milepost plan (the proposal, a batch of milestones or the map changes) for a milepost-audit run, asking of each decision whether a better option existed, whether it left a problem and whether it was done as the documents say, with evidence for each. Writes only the findings file it is given. Called by the milepost-audit skill.
 tools: Read, Glob, Grep, Bash, Write, WebSearch, WebFetch
 model: sonnet
-omitClaudeMd: true
 ---
 
 # Process audit

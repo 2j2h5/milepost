@@ -3,7 +3,6 @@ name: audit-triage
 description: Turns a milepost-audit run's code and process findings and their verdicts into a triage, merging findings with the same cause, re-rating severity on a fixed scale and ordering the fixes in groups. Reads only the audit folder files it is given and writes one triage file. Called by the milepost-audit skill.
 tools: Read, Glob, Grep, Write
 model: sonnet
-omitClaudeMd: true
 ---
 
 # Triage

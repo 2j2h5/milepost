@@ -1,11 +1,9 @@
+# Report template
+
+Every milepost document (the proposal, each design and result, and the audit report) starts from the page below. Copy the html block into a new `.html` file, keep the `<style>` element as it is and replace the sample content. Each component appears once: title and date, contents, purpose box, numbered sections, tables, a flow figure, a bar chart, an attempt box, a bullet list with bold leads, and references. What to write in each part is in `REPORTS.md` beside this file.
+
+```html
 <!doctype html>
-<!--
-  Report template (milepost plugin). Copy this file, keep <style> as is,
-  replace the sample content. Every component is shown once:
-  title + date, contents, purpose box, sections, table, flow figure,
-  bar chart, attempt box, bullet list with bold leads, references.
-  Rules for what to write: REPORTS.md beside this folder.
--->
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -219,3 +217,4 @@
 
 </body>
 </html>
+```
